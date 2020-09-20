@@ -1,0 +1,16 @@
+2020-08-28 19:47:36,185 INFO com.example.DemoApplication [main] Starting DemoApplication on do with PID 15072 (D:\STSWorkspace\demo\target\classes started by dohv in D:\STSWorkspace\demo)
+2020-08-28 19:47:36,194 INFO com.example.DemoApplication [main] No active profile set, falling back to default profiles: default
+2020-08-28 19:47:37,030 INFO org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+2020-08-28 19:47:37,030 INFO org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-08-28 19:47:37,136 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+2020-08-28 19:47:37,585 INFO com.example.DemoApplication [main] Started DemoApplication in 1.789 seconds (JVM running for 2.514)
+2020-08-28 19:48:09,477 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8081-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-08-28 19:48:10,851 INFO com.example.controller.MainController [http-nio-8081-exec-2] loginPage
+2020-08-28 19:49:34,542 INFO com.example.DemoApplication [main] Starting DemoApplication on do with PID 13948 (D:\STSWorkspace\demo\target\classes started by dohv in D:\STSWorkspace\demo)
+2020-08-28 19:49:34,544 INFO com.example.DemoApplication [main] No active profile set, falling back to default profiles: default
+2020-08-28 19:49:35,339 INFO org.apache.catalina.core.StandardService [main] Starting service [Tomcat]
+2020-08-28 19:49:35,340 INFO org.apache.catalina.core.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/9.0.33]
+2020-08-28 19:49:35,438 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [main] Initializing Spring embedded WebApplicationContext
+2020-08-28 19:49:35,862 INFO com.example.DemoApplication [main] Started DemoApplication in 1.617 seconds (JVM running for 2.264)
+2020-08-28 19:49:43,892 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8081-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-08-28 19:49:45,395 INFO com.example.controller.MainController [http-nio-8081-exec-2] loginPage
