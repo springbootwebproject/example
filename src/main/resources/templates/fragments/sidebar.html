@@ -9,7 +9,13 @@
                      </a>
                      <div class="sb-sidenav-menu-heading">Quản lý </div>
                     <div th:if="${hasRoleCategory} == true or ${isAdmin} == true">
-                    	 <a class="nav-link collapsed" th:href="@{/cms/category}" > Danh mục</a>
+                    	 <a class="nav-link collapsed" th:href="@{/cms/category}" >
+						  <div class="sb-nav-link-icon"> <i class="fas fa-list"></i></div>                    	 
+                    	  Danh mục
+                    	 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                    	
+                    	 </a>
+                    	 
                     </div>
                      <div th:if="${hasRoleTB} == true or ${isAdmin} == true">
                     	 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#thuebao" aria-expanded="false" aria-controls="collapseLayouts">
@@ -30,6 +36,7 @@
                         Kinh doanh 
                          <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
 	                     </a>
+	                    
 	                     <div class="collapse" id="bussiness" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
 	                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
 	                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
@@ -54,6 +61,29 @@
 	                                     <a class="nav-link" href="500.html">500 Page</a>
 	                                 </nav>
 	                             </div>
+	                         </nav>
+	                     </div>
+	                       <a class="nav-link collapsed" data-toggle="collapse" data-target="#story" aria-expanded="false" aria-controls="collapsePages">
+                         <div class="sb-nav-link-icon"><i class="fas fa-music"></i></div>
+                       	Truyện 
+                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+	                     </a>
+	                     <div class="collapse" id="story" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+	                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+	                             <a class="nav-link collapsed" th:href="@{/story/}">
+	                                 Quản lý nội dung
+	                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+	                             </a>
+	                             <a class="nav-link collapsed" th:href="@{/story/}">
+	                                Upload nội dung
+	                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+	                             </a>
+	                             
+	                             <a class="nav-link" href="#">
+	                                 Sáng tác nội dung
+	                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+	                             </a>
+	                            
 	                         </nav>
 	                     </div>
                     </div>

@@ -32,12 +32,16 @@ public class CategoryDAOImpl implements CategoryDAO{
 		logger.info("insert category >>");
 		int result = DataContants.SYSTEM_ERROR;
 		try {
-			String sql = "insert into app_category(category_name,status,created_date,updated_dated,updated_by)"
-					+ "values(:category_name,:status,NOW(),NOW(),:updated_by)";
+			String sql = "insert into app_category(category_name,"
+					+ "status,created_date,updated_dated,updated_by,"
+					+ "parent_category_id_category_id, description)"
+					+ "values(:category_name,:status,NOW(),NOW(),:updated_by,:parentId,:description)";
 			Query query = this.entityManager.createNativeQuery(sql);
 			query.setParameter("category_name", category.getCategory_name());
 			query.setParameter("status", category.getStatus());
 			query.setParameter("updated_by", category.getUpdated_by());
+			query.setParameter("parentId", category.getParent_category_id().getId());
+			query.setParameter("description", category.getDescription());
 			
 			query.executeUpdate();
 			
@@ -55,12 +59,16 @@ public class CategoryDAOImpl implements CategoryDAO{
 		logger.info("update category >>");
 		int result = DataContants.SYSTEM_ERROR;
 		try {
-			String sql = "update app_category set category_name = :category_name, status = :status, updated_by = :updated_by "
-					+ "updated_dated = NOW() where category_id = :category_id ";
+			String sql = "update app_category set category_name = :category_name, status = :status, "
+					+ "updated_by = :updated_by, parent_category_id_category_id =:parentId,"
+					+ "updated_dated = NOW(), description = :description where category_id = :category_id ";
 			Query query = this.entityManager.createNativeQuery(sql);
 			query.setParameter("category_name", category.getCategory_name());
 			query.setParameter("status", category.getStatus());
 			query.setParameter("category_id",category.getCategory_id());
+			query.setParameter("updated_by", category.getUpdated_by());
+			query.setParameter("parentId", category.getParent_category_id().getId());
+			query.setParameter("description", category.getDescription());
 			query.executeUpdate();
 
 			result = DataContants.SUCCESS;
@@ -156,12 +164,10 @@ public class CategoryDAOImpl implements CategoryDAO{
 		List<Category> categories = new ArrayList<>();
 		
 		try {
-			String sql = " from "+Category.class.getName()+"as  t1 left join "+ CategoryParent.class.getName()+"as t2"
-					+ "on t1.parent_category_id = t2.parent_category_id  where t1.status = :status and t2.parent_category_id = :parent_category_id ";
+			String sql = "select t1 from "+Category.class.getName()+" t1 left join t1.parent_category_id where t1.status = :status and t1.parent_category_id.id = :parentId";
 			TypedQuery<Category> query = this.entityManager.createQuery(sql, Category.class);
 			query.setParameter("status", DataContants.PUBLISH_STATUS);
-			query.setParameter("parent_category_id", parentId);
-			
+			query.setParameter("parentId", parentId);
 			categories = query.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();

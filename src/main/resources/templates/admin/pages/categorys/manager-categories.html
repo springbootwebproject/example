@@ -11,115 +11,231 @@
 		</div>
 		<div id="layoutSidenav_content">
 			<!-- <div th:replace="fragments/content :: content"></div> -->
+			
 			<div class="container-fluid">
+				<h1 class="mt-4">Manager Categories</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Categories</li>
+                        </ol>
 				<div class="row">
 					<div class="col-12">
 						<div id="accordion">
-							<th:block th:if="${categoryParents != null}" th:each="item,state : ${categoryParents}">
+							<th:block th:if="${categoryParents != null}"
+								th:each="item,state : ${categoryParents}">
 								<div class="card">
-								<div class="card-header" id="headingOne">
-									<h5 class="mb-0">
-										<button class="btn btn-link" data-toggle="collapse"
-											data-target="#collapseOne" aria-expanded="true"
-											aria-controls="collapseOne" th:text="${item.category_name}"></button>
-									</h5>
+									<div class="card-header" id="headingOne">
+										<h5 class="mb-0">
+											<button class="btn btn-link" data-toggle="collapse"
+												th:attr="data-target='#collapse'+${item.id}"
+												aria-expanded="true" aria-controls="collapseOne"
+												th:text="${item.category_name}"></button>
+										</h5>
+									</div>
+									<div th:id="'collapse'+${item.id}" class="collapse"
+										aria-labelledby="headingOne" data-parent="#accordion">
+										<div class="card-body">
+											<table class="table table-striped">
+												<thead>
+													<tr>
+														<th scope="col">STT</th>
+														<th scope="col">Tên danh mục</th>
+														<th scope="col">Ngày tạo</th>
+														<th scope="col">Trạng thái</th>
+														<th scope="col">Mô tả</th>
+														<th scope="col">Hành động</th>
+													</tr>
+												</thead>
+												<tbody>
+													<button type="button" class="btn btn-success m-1"
+														data-toggle="modal" id="addCategory"  data-target="#modal_add_category">Thêm</button>
+													<th:block th:each="childItem,childState : ${categories}">
+														<tr
+															th:if="${item.id} == ${childItem.parent_category_id.id}">
+															<th scope="row" th:text="${childState.index}"></th>
+															<td th:text="${childItem.category_name}"></td>
+															<td th:text="${childItem.created_date}"></td>
+															<th:block th:if="${childItem.status} == 1">
+																<td th:text="Active"></td>
+															</th:block>
+															<td th:text="${childItem.description}"></td>
+															<td>
+																<button type="button" class="btn btn-warning"
+																	id="editCategory"
+																	th:onclick="|displayModalAddCategory(${childItem.category_id})|">Sửa</button>
+																<button type="button" class="btn btn-danger" 
+																th:data1="${childItem.category_id}" th:data2="${childItem.category_name}"
+																th:onclick="|deleteCategory(this.getAttribute('data1'),this.getAttribute('data2'))|">Xóa</button>
+															</td>
+														</tr>
+													</th:block>
+												</tbody>
+											</table>
+										</div>
+									</div>
 								</div>
-
-								<div th:id="'collapseOne'+${item.id}" class="collapse show"
-									aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="card-body">Anim pariatur cliche
-										reprehenderit, enim eiusmod high life accusamus terry
-										richardson ad squid. 3 wolf moon officia aute, non cupidatat
-										skateboard dolor brunch. Food truck quinoa nesciunt laborum
-										eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-										it squid single-origin coffee nulla assumenda shoreditch et.
-										Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-										cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-										vice lomo. Leggings occaecat craft beer farm-to-table, raw
-										denim aesthetic synth nesciunt you probably haven't heard of
-										them accusamus labore sustainable VHS.</div>
-								</div>
-							</div>
 							</th:block>
-							<div class="card">
-								<div class="card-header" id="headingOne">
-									<h5 class="mb-0">
-										<button class="btn btn-link" data-toggle="collapse"
-											data-target="#collapseOne" aria-expanded="true"
-											aria-controls="collapseOne">Collapsible Group Item
-											#1</button>
-									</h5>
-								</div>
-
-								<div id="collapseOne" class="collapse show"
-									aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="card-body">Anim pariatur cliche
-										reprehenderit, enim eiusmod high life accusamus terry
-										richardson ad squid. 3 wolf moon officia aute, non cupidatat
-										skateboard dolor brunch. Food truck quinoa nesciunt laborum
-										eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-										it squid single-origin coffee nulla assumenda shoreditch et.
-										Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-										cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-										vice lomo. Leggings occaecat craft beer farm-to-table, raw
-										denim aesthetic synth nesciunt you probably haven't heard of
-										them accusamus labore sustainable VHS.</div>
-								</div>
-							</div>
-							<div class="card">
-								<div class="card-header" id="headingTwo">
-									<h5 class="mb-0">
-										<button class="btn btn-link collapsed" data-toggle="collapse"
-											data-target="#collapseTwo" aria-expanded="false"
-											aria-controls="collapseTwo">Collapsible Group Item
-											#2</button>
-									</h5>
-								</div>
-								<div id="collapseTwo" class="collapse"
-									aria-labelledby="headingTwo" data-parent="#accordion">
-									<div class="card-body">Anim pariatur cliche
-										reprehenderit, enim eiusmod high life accusamus terry
-										richardson ad squid. 3 wolf moon officia aute, non cupidatat
-										skateboard dolor brunch. Food truck quinoa nesciunt laborum
-										eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-										it squid single-origin coffee nulla assumenda shoreditch et.
-										Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-										cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-										vice lomo. Leggings occaecat craft beer farm-to-table, raw
-										denim aesthetic synth nesciunt you probably haven't heard of
-										them accusamus labore sustainable VHS.</div>
-								</div>
-							</div>
-							<div class="card">
-								<div class="card-header" id="headingThree">
-									<h5 class="mb-0">
-										<button class="btn btn-link collapsed" data-toggle="collapse"
-											data-target="#collapseThree" aria-expanded="false"
-											aria-controls="collapseThree">Collapsible Group Item
-											#3</button>
-									</h5>
-								</div>
-								<div id="collapseThree" class="collapse"
-									aria-labelledby="headingThree" data-parent="#accordion">
-									<div class="card-body">Anim pariatur cliche
-										reprehenderit, enim eiusmod high life accusamus terry
-										richardson ad squid. 3 wolf moon officia aute, non cupidatat
-										skateboard dolor brunch. Food truck quinoa nesciunt laborum
-										eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on
-										it squid single-origin coffee nulla assumenda shoreditch et.
-										Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-										cred nesciunt sapiente ea proident. Ad vegan excepteur butcher
-										vice lomo. Leggings occaecat craft beer farm-to-table, raw
-										denim aesthetic synth nesciunt you probably haven't heard of
-										them accusamus labore sustainable VHS.</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
+			<div class="modal fade" id="modal_add_category" tabindex="-1"
+				role="dialog" aria-hidden="true">
+				<h1 id="msg_error"></h1>
+				<form id="form_add_category" th:object="${category}" 
+				th:action="@{/cms/category/insert-update(${_csrf.parameterName} = ${_csrf.token})}" 
+				method="POST">
+					<div class="modal-dialog modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+								<button type="button" class="close" aria-label="Close"
+									onclick="closeModal()">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="container-fluid">
+									<div class="form-group row">
+										<label for="idCategory" class="col-sm-2 col-form-label">Mã danh mục</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control"
+												id="idCategory" placeholder="Tên danh mục" th:text="${category.category_id}"
+												th:field="*{category_id}" readonly>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputNameCategory" class="col-sm-2 col-form-label">Tên
+											danh mục</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control"
+												id="inputNameCategory" placeholder="Tên danh mục"
+												th:field="*{category_name}" required>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputDescription" class="col-sm-2 col-form-label">Mô
+											tả</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control"
+												th:field="*{description}" id="inputDescription"
+												placeholder="Mô tả" required>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputCategoryParent"
+											class="col-sm-2 col-form-label">Danh mục cha</label>
+										<div class="col-sm-10">
+											<div class="form-group">
+												<select class="custom-select" id="parent_id" required
+													th:field="*{parent_category_id.id}">
+													<option value="">Open this select menu</option>
+													<th:block th:each="item,state : ${categoryParents}">
+														<option th:value="${item.id}"
+															th:text="${item.category_name}"></option>
+													</th:block>
+
+												</select>
+												<div class="invalid-feedback">Invalid Category parent</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="inputStatus" class="col-sm-2 col-form-label">Trạng thái</label>
+										<div class="col-sm-10">
+											<div class="form-group">
+												<select class="custom-select" id="inputStatus" th:field="*{status}" required>
+													<option value="0">Pending</option>
+													<option value="1">Active</option>
+												</select>
+												<div class="invalid-feedback">Invalid status</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="submit" class="btn btn-primary">Save
+									changes</button>
+								<button type="submit" class="btn btn-default" onclick="closeModal()">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
 			<footer th:replace="fragments/footer :: footer"></footer>
+
+			<script type="text/javascript">
+			
+				
+				var modal = document.getElementById("modal_add_category");
+				
+				window.onclick = function(event) {
+				    if (event.target == modal) {
+				    	closeModal();
+				    }
+				}
+				
+				function closeModal() {
+					document.getElementById("msg_error").style.display = "none";
+					modal.style.display = "none";
+					$("#modal_add_category").modal('hide');
+					$("#inputNameCategory").val(""); 
+					$("#inputDescription").val("");
+					$("#parent_id").val("");
+					$("#inputStatus").val("");
+					 $("#idCategory").val("");
+					
+				}
+				
+				function displayModalAddCategory(category_id){
+					console.log("Category Id: "+ category_id);
+					 $("#modal_add_category").modal("show");
+					 
+					 var search  = {};
+					  $.ajax({
+						 type:"GET",
+						 url:"category/"+category_id,
+						 timeout:600000,
+						 success:function(data){
+							 $("#inputNameCategory").val(data.category_name); 
+							 $("#inputDescription").val(data.description);
+							 $("#parent_id").val(data.parent_category_id.id);
+							 $("#inputStatus").val(data.status);
+							 $("#idCategory").val(data.category_id);
+						 },
+						 error: function(e){
+							 $("#error").html("Lỗi khi load dữ liệu category id: "+category_id);
+						 }
+					  });
+				}
+				 
+				function deleteCategory(categoryId,title){
+					 console.log("csrf: "+$("#csrf_token").val());
+					  var r = confirm("Bạn muốn xóa menu " + title + " đã chọn?");
+					  if(r){
+						  var search = {};
+						  
+						  $.ajax({
+							  type:"POST",
+							  url:"category/delete/"+categoryId,
+							  data:{'_csrf': $('#csrf_token').val()},
+							  timeout:600000,
+							  success:function(data){
+								  console.log("Delete Sucess !");
+							  },
+							  error:function(e){
+								  console.log("Failed !");
+							  }
+							  });
+					  }else{
+						  console.log("Cancel");
+					  }
+				}
+				 
+				
+			</script>
 		</div>
 	</div>
 </body>

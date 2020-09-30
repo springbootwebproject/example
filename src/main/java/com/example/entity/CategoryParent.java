@@ -39,8 +39,19 @@ public class CategoryParent {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date update_date;
 
+	@Column(name = "description")
+	private String description;
 	
 	
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Date getUpdate_date() {
 		return update_date;
 	}
